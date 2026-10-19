@@ -1,0 +1,12 @@
+import js from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import prettierConfig from 'eslint-config-prettier';
+import tseslint from 'typescript-eslint';
+
+export default defineConfig(
+  { ignores: ['dist/', 'node_modules/'] },
+  js.configs.recommended,
+  tseslint.configs.recommended,
+  // Must be last: turns off rules that would conflict with Prettier formatting.
+  prettierConfig,
+);
