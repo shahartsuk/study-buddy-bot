@@ -7,7 +7,9 @@ describe('/ping', () => {
   });
 
   it('replies with pong and both latencies', () => {
-    expect(formatPingReply(120, 45.6)).toBe('🏓 Pong! Response time: 120ms | WebSocket: 46ms');
+    expect(formatPingReply(120, 45.6)).toBe(
+      '🏓 Pong from Study Buddy! Response time: 120ms | WebSocket: 46ms',
+    );
   });
 
   it('handles a websocket ping that was not measured yet', () => {

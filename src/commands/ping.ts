@@ -8,7 +8,7 @@ import type { Command } from '../types.js';
 export function formatPingReply(roundTripMs: number, websocketPingMs: number): string {
   // discord.js reports -1 until the first heartbeat has been measured.
   const websocket = websocketPingMs >= 0 ? `${Math.round(websocketPingMs)}ms` : 'not measured yet';
-  return `🏓 Pong! Response time: ${roundTripMs}ms | WebSocket: ${websocket}`;
+  return `🏓 Pong from Study Buddy! Response time: ${roundTripMs}ms | WebSocket: ${websocket}`;
 }
 
 const ping: Command = {
