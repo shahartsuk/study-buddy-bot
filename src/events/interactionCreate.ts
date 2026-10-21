@@ -1,4 +1,5 @@
 import { Events, MessageFlags } from 'discord.js';
+import { handleSignupButton } from '../onboarding/handleOnboarding.js';
 import type { BotEvent } from '../types.js';
 
 const interactionCreate: BotEvent<Events.InteractionCreate> = {
@@ -7,10 +8,7 @@ const interactionCreate: BotEvent<Events.InteractionCreate> = {
     // Button clicks must be handled here, before the slash-command check below.
     // A button click is not a slash command, so that check would exit before reaching this code.
     if (interaction.isButton() && interaction.customId === 'onboarding:start') {
-      await interaction.reply({
-        content: 'לחצת על הרשמה! 🎉',
-        flags: MessageFlags.Ephemeral,
-      });
+      await handleSignupButton(interaction);
       return;
     }
 
