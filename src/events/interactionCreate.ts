@@ -1,5 +1,9 @@
 import { Events, MessageFlags } from 'discord.js';
-import { handleSignupButton, handleTypeSelect } from '../onboarding/handleOnboarding.js';
+import {
+  handleSignupButton,
+  handleTypeSelect,
+  handleInstitutionSelect,
+} from '../onboarding/handleOnboarding.js';
 import type { BotEvent } from '../types.js';
 
 const interactionCreate: BotEvent<Events.InteractionCreate> = {
@@ -16,6 +20,12 @@ const interactionCreate: BotEvent<Events.InteractionCreate> = {
       await handleTypeSelect(interaction);
       return;
     }
+
+    if (interaction.isStringSelectMenu() && interaction.customId === 'onboarding:institution') {
+      await handleInstitutionSelect(interaction);
+      return;
+    }
+
     if (!interaction.isChatInputCommand()) return;
 
     const command = interaction.client.commands.get(interaction.commandName);
