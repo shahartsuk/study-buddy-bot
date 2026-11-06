@@ -1,7 +1,11 @@
 import {
   ActionRowBuilder,
+  LabelBuilder,
   MessageFlags,
+  ModalBuilder,
   StringSelectMenuBuilder,
+  TextInputBuilder,
+  TextInputStyle,
   type ButtonInteraction,
   type StringSelectMenuInteraction,
 } from 'discord.js';
@@ -61,8 +65,20 @@ export async function handleInstitutionSelect(
   const chosenInstitution = interaction.values[0];
   if (!chosenInstitution) return;
   const option = findInstitution(chosenInstitution);
-  await interaction.reply({
-    content: 'בחרת ב' + option?.name,
-    flags: MessageFlags.Ephemeral,
-  });
+  // 1. The text box where the user types
+  const fieldInput = new TextInputBuilder()
+    .setCustomId('onboarding:studies')
+    .setStyle(TextInputStyle.Short);
+
+  // 2. The question, with the text box inside it
+  const fieldLabel = new LabelBuilder().setLabel('מה אתה לומד?').setTextInputComponent(fieldInput);
+
+  // 3. The form window, with the question inside it
+  const modal = new ModalBuilder()
+    .setCustomId('onboarding:studiesForm')
+    .setTitle('פרטי הלימודים - ' + option?.name)
+    .addLabelComponents(fieldLabel);
+
+  // 4. Show the window
+  await interaction.showModal(modal);
 }
